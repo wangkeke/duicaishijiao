@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+<typeInfo handle="=com.swarm.admin/C:\/Users\/Administrator\/.m2\/repository\/org\/apache\/tomcat\/embed\/tomcat-embed-core\/9.0.26\/tomcat-embed-core-9.0.26.jar&lt;javax.servlet(Filter.class[Filter" modifiers="1537" timestamp="1586052961336"/>
+<typeInfo handle="=com.swarm.base/C:\/Users\/Administrator\/.m2\/repository\/org\/springframework\/data\/spring-data-commons\/2.1.11.RELEASE\/spring-data-commons-2.1.11.RELEASE.jar&lt;org.springframework.data.repository(CrudRepository.class[CrudRepository" modifiers="1537" timestamp="1586052841315"/>
+<typeInfo handle="=com.swarm.base/C:\/Users\/Administrator\/.m2\/repository\/org\/springframework\/data\/spring-data-jpa\/2.1.11.RELEASE\/spring-data-jpa-2.1.11.RELEASE.jar&lt;org.springframework.data.jpa.repository.support(CrudMethodMetadata.class[CrudMethodMetadata" modifiers="1537" timestamp="1586052839645"/>
+<typeInfo handle="=com.swarm.base/C:\/Users\/Administrator\/.m2\/repository\/org\/springframework\/data\/spring-data-jpa\/2.1.11.RELEASE\/spring-data-jpa-2.1.11.RELEASE.jar&lt;org.springframework.data.jpa.repository(JpaRepository.class[JpaRepository" modifiers="1537" timestamp="1586052839645"/>
+</typeInfoHistroy>

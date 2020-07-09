@@ -1,0 +1,24 @@
+package com.swarm.eureka;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.context.ConfigurableApplicationContext;
+
+
+@EnableEurekaServer
+@SpringBootApplication
+public class EurekaServer {
+	
+    @Value("${API_LOGIN_LIMIT_CALLS:10}")
+    public static final long API_LOGIN_LIMIT_CALLS = 10;
+    
+    @Value("${API_LOGIN_LIMIT_PERIOD:60}")
+    public static final long API_LOGIN_LIMIT_PERIOD = 60;
+	
+	public static void main(String[] args) {
+		ConfigurableApplicationContext context = SpringApplication.run(EurekaServer.class, args);
+	}
+
+}

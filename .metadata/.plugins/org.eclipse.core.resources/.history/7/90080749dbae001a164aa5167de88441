@@ -1,0 +1,5 @@
+package com.swarm.base.entity;
+
+public class SysUserMenu extends BaseEntity {
+
+}

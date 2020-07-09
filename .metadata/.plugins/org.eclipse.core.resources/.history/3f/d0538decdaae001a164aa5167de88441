@@ -1,0 +1,5 @@
+package com.swarm.base.entity;
+
+public class SysUserRole extends BaseEntity {
+
+}

@@ -1,0 +1,23 @@
+package com.swarm.eureka;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.core.env.Environment;
+
+
+@EnableEurekaServer
+@SpringBootApplication
+public class EurekaServer {
+	
+	@Autowired
+	private static Environment env;
+	
+	public static void main(String[] args) {
+		SpringApplication.run(EurekaServer.class, args);
+		System.out.println(env.getProperty("logging.pattern.console"));
+		System.out.println(env.getProperty("CONSOLE_LOG_PATTERN"));
+	}
+
+}

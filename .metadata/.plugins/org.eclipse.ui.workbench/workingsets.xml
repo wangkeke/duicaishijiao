@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1570866103035_0" label="Java Main Sources" name="Java Main Sources">
+<item elementID="=com.imtest.core/src\/main\/java" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=com.imtest.core/src\/main\/resources" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSet>
+<workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1570866103044_1" label="Java Test Sources" name="Java Test Sources">
+<item elementID="=com.imtest.core/src\/test\/java" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=com.imtest.core/src\/test\/resources" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSet>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1571282305434_3" label="wildfirechat-parent" name="wildfirechat-parent">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/common" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/distribution" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/wildfirechat-parent" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/sdk" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/moquette-broker" type="4"/>
+</workingSet>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1586052606809_4" label="com.swarm" name="com.swarm">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/com.swarm.admin" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/com.swarm.web" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/com.swarm.upload" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/com.swarm.base" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/com.swarm.app" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/com.swarm" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/com.swarm.config" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/com.swarm.zuul" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/com.swarm.wechat" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/com.swarm.eureka" type="4"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1570866112298_2" label="Window Working Set" name="Aggregate for window 1570866112297"/>
+</workingSetManager>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appenders>
+	
+	</appenders>
+	<loggers>
+	<logger name="org" level="INFO" additivity="false">
+		<appender-ref ref="console"/>
+	</logger>
+	<root level="INFO"></root>
+	</loggers>
+</configuration>

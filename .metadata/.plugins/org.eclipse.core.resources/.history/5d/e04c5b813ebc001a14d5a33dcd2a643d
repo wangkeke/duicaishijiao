@@ -1,0 +1,10 @@
+spring: 
+  application: 
+    name: eurekaserver
+  cloud: 
+    config: 
+      uri: ${CONFIG_SERVER.URI:http://localhost:8888/}
+debug: true
+logging: 
+  pattern: 
+    console: %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
