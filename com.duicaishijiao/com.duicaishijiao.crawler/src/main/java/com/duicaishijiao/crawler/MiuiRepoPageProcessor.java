@@ -1,6 +1,9 @@
 package com.duicaishijiao.crawler;
 
+import java.util.Date;
 import java.util.List;
+
+import com.duicaishijiao.crawler.domain.VideoInfo;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -16,11 +19,14 @@ public class MiuiRepoPageProcessor implements PageProcessor , RepoEntrance{
 	//类型：综艺短片
 	private String entrance = "https://hot.browser.miui.com/v7/#page=inline-video-detail&id=V_097EJzRf&traceId=2F6AF103F9659CDE036032D594BB465E&cp=cn-yidian-video&originCpId=blankOriginCpId&trackPath=rec&wemedia=aGlkZUFk&source=%E5%B0%A4%E4%B9%BE%E4%BB%81%E4%B8%8D%E5%AE%B9%E6%98%93&title=%E6%AC%A2%E4%B9%90%E6%B3%A2%E6%B2%88%E8%85%BE%E5%8C%96%E8%BA%AB%E5%8D%93%E5%88%AB%E6%9E%97%EF%BC%8C%E4%B8%80%E5%87%BA%E5%9C%BA%E5%AE%8B%E5%B0%8F%E5%AE%9D%E9%83%BD%E6%83%8A%E8%AE%B6%E4%BA%86%EF%BC%8C%E7%AE%80%E7%9B%B4%E6%9C%AC%E5%B0%8A%E9%A9%BE%E5%88%B0&_miui_bottom_bar=comment";
 	
-	public MiuiRepoPageProcessor(){
-		
+	private String categroy;
+	
+	public MiuiRepoPageProcessor(String categroy){
+		this.categroy = categroy;
 	}
 	
-	public MiuiRepoPageProcessor(String entrance){
+	public MiuiRepoPageProcessor(String categroy , String entrance){
+		this.categroy = categroy;
 		this.entrance = entrance;
 	}
 	
@@ -35,12 +41,21 @@ public class MiuiRepoPageProcessor implements PageProcessor , RepoEntrance{
 	 	List<String> img = selectable.$("div.inline-video__poster img","src").all();
 	 	List<String> src = selectable.$("video","data-src").all();
 	 	List<String> title = selectable.$("video","miuititle").all();
-	 	if(!title.isEmpty()) {	 		
-	 		page.putField("title", title.get(title.size()-1));
-	 		page.putField("img", img.get(img.size()-1));
-	 		page.putField("src", src.get(src.size()-1));
+	 	if(!title.isEmpty()) {
+//	 		page.putField("title", title.get(title.size()-1));
+//	 		page.putField("img", img.get(img.size()-1));
+//	 		page.putField("src", src.get(src.size()-1));
 	 		String url = page.getRequest().getUrl();
-	 		page.putField("id", url.substring(url.indexOf("&id=")+4,url.indexOf("&",url.indexOf("&id=")+5)));
+//	 		page.putField("id", url.substring(url.indexOf("&id=")+4,url.indexOf("&",url.indexOf("&id=")+5)));
+	 		VideoInfo videoInfo = new VideoInfo();
+	 		videoInfo.setCreateTime(new Date());
+	 		videoInfo.setUpdateTime(new Date());
+	 		videoInfo.setId(url.substring(url.indexOf("&id=")+4,url.indexOf("&",url.indexOf("&id=")+5)));
+	 		videoInfo.setImg(img.get(img.size()-1));
+	 		videoInfo.setSrc(src.get(src.size()-1));
+	 		videoInfo.setTitle(title.get(title.size()-1));
+	 		videoInfo.setType(this.categroy);
+	 		page.putField("doc", videoInfo);
 	 	}
 		page.addTargetRequests(page.getHtml().links().regex("#page=inline-video-detail&id=V_.+").all());
 	}

@@ -1,7 +1,11 @@
 package com.duicaishijiao.crawler;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.duicaishijiao.crawler.domain.MovieInfo;
+import com.duicaishijiao.crawler.domain.MovieSource;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -15,6 +19,8 @@ public class NanGuaRepoPageProcessor implements PageProcessor , RepoEntrance{
 	
 	private int maxCrawPages = 10;
 	
+	private int startCrawPage = 1;
+	
 	public NanGuaRepoPageProcessor(){
 		
 	}
@@ -23,9 +29,25 @@ public class NanGuaRepoPageProcessor implements PageProcessor , RepoEntrance{
 		this.entrance = entrance;
 	}
 	
+	public NanGuaRepoPageProcessor(int maxCrawPages) {
+		this.maxCrawPages = maxCrawPages;
+	}
+	
+	public NanGuaRepoPageProcessor(int startCrawPage , int maxCrawPages) {
+		this.maxCrawPages = maxCrawPages;
+		this.startCrawPage = startCrawPage;
+	}
+	
+	
 	public NanGuaRepoPageProcessor(String entrance , int maxCrawPages) {
 		this.entrance = entrance;
 		this.maxCrawPages = maxCrawPages;
+	}
+	
+	public NanGuaRepoPageProcessor(int startCrawPage , int maxCrawPages , String entrance) {
+		this.maxCrawPages = maxCrawPages;
+		this.startCrawPage = startCrawPage;
+		this.entrance = entrance;
 	}
 	
 	@Override
@@ -53,10 +75,11 @@ public class NanGuaRepoPageProcessor implements PageProcessor , RepoEntrance{
 			int pageNum = Integer.parseInt(ss[0]);
 			int totalPage = Integer.parseInt(ss[1].substring(0, ss[1].lastIndexOf("<")-1));
 			String firstPageLink = selectable.$("a.page_link","href").all().get(0);
-			if(totalPage<maxCrawPages) {
-				maxCrawPages = totalPage;
+			int end = startCrawPage + maxCrawPages;
+			if(totalPage<end) {
+				end = totalPage;
 			}
-			for (int i = 1; i < maxCrawPages; i++) {
+			for (int i = startCrawPage; i < end; i++) {
 				page.addTargetRequest(firstPageLink.replace("-1", "-"+(pageNum+i)));
 			}
 		}
@@ -74,10 +97,10 @@ public class NanGuaRepoPageProcessor implements PageProcessor , RepoEntrance{
 			String _s = linodes.get(1).get();
 			_s = _s.substring(_s.indexOf("</span>")+7);
 			String time = _s.substring(0,_s.indexOf("<"));
-			String aname = null;
+			String alias = null;
 			if(_s.contains("<span>")) {
 				_s = _s.substring(_s.indexOf("</span>")+7);
-				aname = _s.substring(0,_s.indexOf("<"));
+				alias = _s.substring(0,_s.indexOf("<"));
 			}
 			String author = linodes.get(2).$("a","text").get();
 			String actors = linodes.get(3).$("a","text").all().stream().collect(Collectors.joining(","));
@@ -90,25 +113,53 @@ public class NanGuaRepoPageProcessor implements PageProcessor , RepoEntrance{
 			String href = page.getHtml().$("div.play-list a","href").all().get(0);
 			String[] pss = path.split("/");
 			String id = pss[pss.length-1];
-			page.putField("id", id);
-			page.putField("href", href);
-			page.putField("name", name);
-			page.putField("aname", aname);
-			page.putField("img", img);
-			page.putField("score", score);
-			page.putField("type", type);
-			page.putField("actors", actors);
-			page.putField("time", time);
-			page.putField("status", status);
-			page.putField("area", area);
-			page.putField("desc", desctext);
-			page.putField("author", author);
+//			page.putField("id", id);
+//			page.putField("href", href);
+//			page.putField("name", name);
+//			page.putField("aname", alias);
+//			page.putField("img", img);
+//			page.putField("score", score);
+//			page.putField("type", type);
+//			page.putField("actors", actors);
+//			page.putField("time", time);
+//			page.putField("status", status);
+//			page.putField("area", area);
+//			page.putField("desc", desctext);
+//			page.putField("author", author);
+			
+			MovieInfo movieInfo = new MovieInfo();
+			movieInfo.setCreateTime(new Date());
+			movieInfo.setUpdateTime(new Date());
+			movieInfo.setId(Integer.valueOf(id));
+			movieInfo.setName(name);
+			movieInfo.setAlias(alias);
+			movieInfo.setImg(img);
+			try {
+				movieInfo.setScore(Double.valueOf(score));				
+			} catch (Exception e) {
+				movieInfo.setScore(0.0D);			
+			}
+			movieInfo.setType(type);
+			movieInfo.setActors(actors);
+			movieInfo.setTime(time);
+			movieInfo.setStatus(status);
+			movieInfo.setArea(area);
+			movieInfo.setDesc(desctext);
+			movieInfo.setAuthor(author);
+			page.putField("doc", movieInfo);
+			
 			page.addTargetRequest(href+";"+id);
 		}else if (path.matches("(/.+)*/play-\\d+-\\d+-\\d+/?;\\d+")) {
 			String id = path.substring(path.indexOf(";")+1);
 			String source = page.getHtml().$("#playleft iframe","src").get();
-			page.putField("id", id);
-			page.putField("source", source);
+//			page.putField("id", id);
+//			page.putField("source", source);
+			
+			MovieSource movieSource = new MovieSource();
+			movieSource.setId(Integer.valueOf(id));
+			movieSource.setSource(source);
+			page.putField("doc", movieSource);
+			
 //			https://jingdian.qincai-zuida.com/20200707/9129_2475f454/1000k/hls/index.m3u8
 //				#EXTM3U
 //				#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=800000,RESOLUTION=1080x608
