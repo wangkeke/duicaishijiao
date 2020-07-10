@@ -13,10 +13,34 @@ public class NanGuaRepoPageProcessor implements PageProcessor , RepoEntrance{
 	
 	private String entrance = "https://www.ooe.la/vodtype/1/";
 	
+	private int maxCrawPages = 10;
+	
+	public NanGuaRepoPageProcessor(){
+		
+	}
+	
+	public NanGuaRepoPageProcessor(String entrance) {
+		this.entrance = entrance;
+	}
+	
+	public NanGuaRepoPageProcessor(String entrance , int maxCrawPages) {
+		this.entrance = entrance;
+		this.maxCrawPages = maxCrawPages;
+	}
+	
 	@Override
 	public String getEntrance() {
 		return this.entrance;
 	}
+	
+	public void setEntrance(String entrance) {
+		this.entrance = entrance;
+	}
+	
+	public void setMaxCrawPages(int maxCrawPages) {
+		this.maxCrawPages = maxCrawPages;
+	}
+	
 	
 	@Override
 	public void process(Page page) {
@@ -29,12 +53,11 @@ public class NanGuaRepoPageProcessor implements PageProcessor , RepoEntrance{
 			int pageNum = Integer.parseInt(ss[0]);
 			int totalPage = Integer.parseInt(ss[1].substring(0, ss[1].lastIndexOf("<")-1));
 			String firstPageLink = selectable.$("a.page_link","href").all().get(0);
-			int maxCrawPages = 10;
 			if(totalPage<maxCrawPages) {
 				maxCrawPages = totalPage;
 			}
-			for (int i = 2; i <= maxCrawPages; i++) {
-				page.addTargetRequest(firstPageLink.replace("-1", "-"+i));
+			for (int i = 1; i < maxCrawPages; i++) {
+				page.addTargetRequest(firstPageLink.replace("-1", "-"+(pageNum+i)));
 			}
 		}
 		String url = page.getRequest().getUrl();
