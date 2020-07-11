@@ -1,0 +1,15 @@
+D:\git-workspace\duicaishijiao\com.duicaishijiao\com.duicaishijiao.crawler\src\main\java\com\duicaishijiao\crawler\domain\VideoInfo.java
+D:\git-workspace\duicaishijiao\com.duicaishijiao\com.duicaishijiao.crawler\src\main\java\com\duicaishijiao\crawler\ElastrcsearchPipeline.java
+D:\git-workspace\duicaishijiao\com.duicaishijiao\com.duicaishijiao.crawler\src\main\java\com\duicaishijiao\crawler\repositories\VideoInfoRepository.java
+D:\git-workspace\duicaishijiao\com.duicaishijiao\com.duicaishijiao.crawler\src\main\java\com\duicaishijiao\crawler\NanGuaRepoPageProcessor.java
+D:\git-workspace\duicaishijiao\com.duicaishijiao\com.duicaishijiao.crawler\src\main\java\com\duicaishijiao\crawler\MiuiRepoPageProcessor.java
+D:\git-workspace\duicaishijiao\com.duicaishijiao\com.duicaishijiao.crawler\src\main\java\com\duicaishijiao\crawler\ElasticsearchConfig.java
+D:\git-workspace\duicaishijiao\com.duicaishijiao\com.duicaishijiao.crawler\src\main\java\com\duicaishijiao\crawler\domain\UserLog.java
+D:\git-workspace\duicaishijiao\com.duicaishijiao\com.duicaishijiao.crawler\src\main\java\com\duicaishijiao\crawler\repositories\MovieSourceRepository.java
+D:\git-workspace\duicaishijiao\com.duicaishijiao\com.duicaishijiao.crawler\src\main\java\com\duicaishijiao\crawler\domain\MovieInfo.java
+D:\git-workspace\duicaishijiao\com.duicaishijiao\com.duicaishijiao.crawler\src\main\java\com\duicaishijiao\crawler\domain\MovieSource.java
+D:\git-workspace\duicaishijiao\com.duicaishijiao\com.duicaishijiao.crawler\src\main\java\com\duicaishijiao\crawler\RepoEntrance.java
+D:\git-workspace\duicaishijiao\com.duicaishijiao\com.duicaishijiao.crawler\src\main\java\com\duicaishijiao\crawler\repositories\MovieInfoRepository.java
+D:\git-workspace\duicaishijiao\com.duicaishijiao\com.duicaishijiao.crawler\src\main\java\com\duicaishijiao\crawler\Application.java
+D:\git-workspace\duicaishijiao\com.duicaishijiao\com.duicaishijiao.crawler\src\main\java\com\duicaishijiao\crawler\domain\UserLogType.java
+D:\git-workspace\duicaishijiao\com.duicaishijiao\com.duicaishijiao.crawler\src\main\java\com\duicaishijiao\crawler\SeleniumChromeDownloader.java

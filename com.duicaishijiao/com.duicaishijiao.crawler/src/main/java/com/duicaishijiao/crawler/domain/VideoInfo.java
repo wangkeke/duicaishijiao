@@ -28,6 +28,7 @@ public class VideoInfo {
 	/**
 	 * 视频类型
 	 */
+	@Field(type = FieldType.Text)
 	private String type;
 	
 	@Field(type = FieldType.Text)
@@ -36,6 +37,11 @@ public class VideoInfo {
 	private String img;
 
 	private String src;
+
+	/**
+	 * 时长
+	 */
+	private  String duration;
 	
 	@Field(type = FieldType.Date)
 	private Date createTime;

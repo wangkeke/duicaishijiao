@@ -1,0 +1,16 @@
+com\duicaishijiao\crawler\domain\VideoInfo.class
+com\duicaishijiao\crawler\domain\UserLog.class
+com\duicaishijiao\crawler\SeleniumChromeDownloader.class
+com\duicaishijiao\crawler\ElasticsearchConfig.class
+com\duicaishijiao\crawler\domain\UserLogType.class
+com\duicaishijiao\crawler\MiuiRepoPageProcessor.class
+com\duicaishijiao\crawler\repositories\MovieInfoRepository.class
+com\duicaishijiao\crawler\RepoEntrance.class
+com\duicaishijiao\crawler\repositories\MovieSourceRepository.class
+com\duicaishijiao\crawler\repositories\VideoInfoRepository.class
+com\duicaishijiao\crawler\domain\MovieInfo.class
+com\duicaishijiao\crawler\ElastrcsearchPipeline.class
+com\duicaishijiao\crawler\Application$1.class
+com\duicaishijiao\crawler\domain\MovieSource.class
+com\duicaishijiao\crawler\NanGuaRepoPageProcessor.class
+com\duicaishijiao\crawler\Application.class

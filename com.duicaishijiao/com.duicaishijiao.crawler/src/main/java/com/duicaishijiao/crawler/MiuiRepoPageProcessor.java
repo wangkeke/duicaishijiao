@@ -40,7 +40,8 @@ public class MiuiRepoPageProcessor implements PageProcessor , RepoEntrance{
 		Selectable selectable = page.getHtml().$("div.inline-video__player");
 	 	List<String> img = selectable.$("div.inline-video__poster img","src").all();
 	 	List<String> src = selectable.$("video","data-src").all();
-	 	List<String> title = selectable.$("video","miuititle").all();
+	 	List<String> title = selectable.$("div.inline-video__title p.title","text").all();
+	 	List<String> duration = selectable.$("div.inline-video__duration","text").all();
 	 	if(!title.isEmpty()) {
 //	 		page.putField("title", title.get(title.size()-1));
 //	 		page.putField("img", img.get(img.size()-1));
@@ -54,6 +55,7 @@ public class MiuiRepoPageProcessor implements PageProcessor , RepoEntrance{
 	 		videoInfo.setImg(img.get(img.size()-1));
 	 		videoInfo.setSrc(src.get(src.size()-1));
 	 		videoInfo.setTitle(title.get(title.size()-1));
+	 		videoInfo.setDuration(duration.get(duration.size()-1));
 	 		videoInfo.setType(this.categroy);
 	 		page.putField("doc", videoInfo);
 	 	}

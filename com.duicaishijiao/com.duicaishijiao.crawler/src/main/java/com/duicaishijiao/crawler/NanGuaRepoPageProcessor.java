@@ -74,13 +74,14 @@ public class NanGuaRepoPageProcessor implements PageProcessor , RepoEntrance{
 			String[] ss = em.split("/",2);
 			int pageNum = Integer.parseInt(ss[0]);
 			int totalPage = Integer.parseInt(ss[1].substring(0, ss[1].lastIndexOf("<")-1));
+			System.out.println("=====================  " + totalPage);
 			String firstPageLink = selectable.$("a.page_link","href").all().get(0);
 			int end = startCrawPage + maxCrawPages;
 			if(totalPage<end) {
 				end = totalPage;
 			}
 			for (int i = startCrawPage; i < end; i++) {
-				page.addTargetRequest(firstPageLink.replace("-1", "-"+(pageNum+i)));
+				page.addTargetRequest(firstPageLink.replace("-1", "-"+(1+i)));
 			}
 		}
 		String url = page.getRequest().getUrl();
