@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename type &apos;com.swarm.test.AIOTest&apos; to &apos;AIOServer&apos;&#x0D;&#x0A;- Original project: &apos;com.swarm.web&apos;&#x0D;&#x0A;- Original element: &apos;com.swarm.test.AIOTest&apos;&#x0D;&#x0A;- Renamed element: &apos;com.swarm.test.AIOServer&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;AIOTest&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/test\/java&lt;com.swarm.test{AIOTest.java[AIOTest" matchStrategy="1" name="AIOServer" qualified="false" references="true" similarDeclarations="false" stamp="1591931285151" textual="false" version="1.0"/>
-</session>

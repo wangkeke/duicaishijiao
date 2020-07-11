@@ -60,7 +60,7 @@ public class SeleniumChromeDownloader extends AbstractDownloader{
 //		}
 		remoteWebDriver.get(request.getUrl());
 		try {
-			Thread.currentThread().sleep(4000);
+			Thread.currentThread().sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
