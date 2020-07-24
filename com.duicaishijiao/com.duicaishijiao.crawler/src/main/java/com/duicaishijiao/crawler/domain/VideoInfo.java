@@ -3,7 +3,6 @@ package com.duicaishijiao.crawler.domain;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -24,12 +23,6 @@ public class VideoInfo {
 	
 	@Id
 	private String id;
-	
-	/**
-	 * 视频类型
-	 */
-	@Field(type = FieldType.Text)
-	private String type;
 	
 	@Field(type = FieldType.Text)
 	private String title;

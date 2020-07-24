@@ -1,0 +1,16 @@
+server: 
+  port: 8080
+  node: 
+    name: crawler-01
+spring:
+  application: 
+    name: crawler
+  redis: 
+    client-name: rds01
+    host: 192.168.68.128
+    port: 6379
+  session: 
+    timeout: 30m
+    store-type: redis
+    redis: 
+      namespace: "session"

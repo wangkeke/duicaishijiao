@@ -6,10 +6,7 @@
 		</Console>
 	</appenders>
 	<loggers>
-	<logger name="org" level="INFO" additivity="false">
-		<appender-ref ref="console"/>
-	</logger>
-	<root level="WARN">
+	<root level="INFO">
 		<appender-ref ref="console"/>
 	</root>
 	</loggers>

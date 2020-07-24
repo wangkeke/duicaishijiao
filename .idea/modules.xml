@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/com.duicaishijiao/com.duicaishijiao.iml" filepath="$PROJECT_DIR$/com.duicaishijiao/com.duicaishijiao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.duicaishijiao/com.duicaishijiao.crawler/com.duicaishijiao.crawler.iml" filepath="$PROJECT_DIR$/com.duicaishijiao/com.duicaishijiao.crawler/com.duicaishijiao.crawler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/duicaishijiao.iml" filepath="$PROJECT_DIR$/.idea/duicaishijiao.iml" />
+    </modules>
+  </component>
+</project>
