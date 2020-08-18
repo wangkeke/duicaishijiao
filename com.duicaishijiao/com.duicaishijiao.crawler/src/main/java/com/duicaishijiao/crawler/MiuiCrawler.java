@@ -5,23 +5,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import com.duicaishijiao.crawler.domain.VideoInfo;
-import com.duicaishijiao.crawler.repositories.VideoInfoRepository;
+import com.duicaishijiao.base.entity.VideoInfo;
+import com.duicaishijiao.base.entity.VideoSource;
+import com.duicaishijiao.base.repository.VideoInfoRepository;
+import com.duicaishijiao.base.repository.VideoSourceRepository;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.selector.Selectable;
 
-@Component
+@Service
 public class MiuiCrawler extends AbstractCrawler{
-	
 	
 	@Autowired
 	private VideoInfoRepository videoInfoRepository;
 	
 	@Autowired
-	private KeyGenerator keyGenerator;
+	private VideoSourceRepository videoSourceRepository;
 	
 	@Override
 	public String getEntrance() {
@@ -46,18 +47,32 @@ public class MiuiCrawler extends AbstractCrawler{
 	 	List<String> title = selectable.$("div.inline-video__title p.title","text").all();
 	 	List<String> duration = selectable.$("div.inline-video__duration","text").all();
 	 	if(!title.isEmpty()) {
-	 		VideoInfo videoInfo = new VideoInfo();
-	 		videoInfo.setCreateTime(new Date());
-	 		videoInfo.setUpdateTime(new Date());
-	 		videoInfo.setId(keyGenerator.getKey());
+	 		String tit = title.get(title.size()-1);
+	 		String link = src.get(src.size()-1);
+	 		String videoId = url.substring(url.indexOf("&id=")+4,url.indexOf("&",url.indexOf("&id=")+5));
+	 		if(videoInfoRepository.countByVideoIdOrTitle(videoId,tit)==0) {	 			
+	 			VideoInfo videoInfo = new VideoInfo();
+	 			videoInfo.setCreateTime(new Date());
+	 			videoInfo.setUpdateTime(new Date());
+	 			videoInfo.setVideoId(videoId);
+	 			videoInfo.setImg(img.get(img.size()-1));
+	 			videoInfo.setSrc(link);
+	 			videoInfo.setTitle(tit);
+	 			videoInfo.setDuration(duration.get(duration.size()-1));
+	 			videoInfoRepository.save(videoInfo);
+	 		}
+//	 		VideoInfo videoInfo = new VideoInfo();
+//	 		videoInfo.setCreateTime(new Date());
+//	 		videoInfo.setUpdateTime(new Date());
+////	 		videoInfo.setId(keyGenerator.getKey());
 //	 		videoInfo.setId(url.substring(url.indexOf("&id=")+4,url.indexOf("&",url.indexOf("&id=")+5)));
-	 		videoInfo.setImg(img.get(img.size()-1));
-	 		videoInfo.setSrc(src.get(src.size()-1));
-	 		videoInfo.setTitle(title.get(title.size()-1));
-	 		videoInfo.setDuration(duration.get(duration.size()-1));
-	 		videoInfoRepository.save(videoInfo);
+//	 		videoInfo.setImg(img.get(img.size()-1));
+//	 		videoInfo.setSrc(src.get(src.size()-1));
+//	 		videoInfo.setTitle(title.get(title.size()-1));
+//	 		videoInfo.setDuration(duration.get(duration.size()-1));
+//	 		videoInfoElastic.save(videoInfo);
 	 	}
-		return page.getHtml().links().regex("#page=inline-video-detail&id=V_.+").all().stream().distinct().map(l -> domain+l).collect(Collectors.toList());
+		return page.getHtml().links().regex("#page=inline-video-detail&id=.+").all().stream().distinct().map(l -> domain+l).collect(Collectors.toList());
 	}
 	
 }

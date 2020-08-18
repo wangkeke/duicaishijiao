@@ -81,18 +81,30 @@ public abstract class AbstractCrawler implements RepoEntrance{
 	}
 	
 	public void init() {
-		try {			
-			remoteWebDriver = new RemoteWebDriver(new URL(remoteWebDriverUrl),  DesiredCapabilities.chrome());
-			remoteWebDriver.manage().timeouts()
-			.setScriptTimeout(4, TimeUnit.SECONDS)
-			.pageLoadTimeout(300, TimeUnit.SECONDS);
+		if(inited) {
+			if(remoteWebDriver!=null) {
+				remoteWebDriver.quit();
+			}
+			initRemoteWebDriver();
+		}else {				
+			initRemoteWebDriver();
 			entrance = getEntrance();
 			site = _getSite(entrance);
 			rootDomain = getRootDomain(entrance);
 			cacheKey = getCacheKey();
 			inited = true;
+		}
+	}
+	
+	private void initRemoteWebDriver() {
+		try {			
+			remoteWebDriver = new RemoteWebDriver(new URL(remoteWebDriverUrl),  DesiredCapabilities.chrome());
+			remoteWebDriver.manage().timeouts()
+			.setScriptTimeout(4, TimeUnit.SECONDS)
+			.pageLoadTimeout(300, TimeUnit.SECONDS);
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			log.warn("创建RemoteWebDriver失败，请检查remoteWebDriverUrl格式是否正确！",e);
+			throw new RuntimeException(e);
 		}
 	}
 	
@@ -143,13 +155,18 @@ public abstract class AbstractCrawler implements RepoEntrance{
 			
 			while (!terminate && ops.size(getCacheKey())>0) {
 				String url = ops.leftPop(cacheKey);
-				Page page = loadPage(url);
-				List<String> sus = parsePage(rootDomain, url, page);
-		        if(sus!=null && sus.size()>0) {
-		        	ops.rightPushAll(cacheKey, sus);
-		        }
+				try {					
+					Page page = loadPage(url);
+					List<String> sus = parsePage(rootDomain, url, page);
+					if(sus!=null && sus.size()>0) {
+						ops.rightPushAll(cacheKey, sus);
+					}
+				} catch (RuntimeException e) {
+					ops.rightPush(cacheKey, url);
+					throw new RuntimeException(e);
+				}
 			}
-			System.out.println(site + " 站点爬取任务结束！");
+			log.info(site + " 站点爬取任务结束！");
 	}
 	
 	/**
@@ -173,7 +190,7 @@ public abstract class AbstractCrawler implements RepoEntrance{
 	@PreDestroy
 	public void destory() {
 		if(remoteWebDriver!=null) {			
-			remoteWebDriver.close();
+			remoteWebDriver.quit();
 		}
 	}
 	

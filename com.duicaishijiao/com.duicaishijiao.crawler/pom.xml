@@ -36,10 +36,10 @@
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
   	</dependency>
-  	<dependency>
+  	<!-- <dependency>
   		<groupId>org.springframework.boot</groupId>
   		<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-	</dependency>
+	</dependency> -->
 	<dependency>
     	<groupId>org.springframework.session</groupId>
     	<artifactId>spring-session-data-redis</artifactId>
@@ -49,9 +49,8 @@
 		<artifactId>spring-boot-starter-data-redis</artifactId>
 	</dependency>
 	<dependency>
-    	<groupId>io.netty</groupId>
-    	<artifactId>netty-all</artifactId>
-    	<scope>compile</scope>
+		<groupId>com.duicaishijiao</groupId>
+		<artifactId>base</artifactId>
 	</dependency>
   </dependencies>
 </project>

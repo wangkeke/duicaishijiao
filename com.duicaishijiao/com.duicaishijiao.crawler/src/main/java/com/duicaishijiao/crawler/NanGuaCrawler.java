@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import com.duicaishijiao.crawler.domain.MovieInfo;
-import com.duicaishijiao.crawler.domain.MovieSource;
-import com.duicaishijiao.crawler.repositories.MovieInfoRepository;
-import com.duicaishijiao.crawler.repositories.MovieSourceRepository;
+import com.duicaishijiao.base.entity.MovieInfo;
+import com.duicaishijiao.base.entity.MovieSource;
+import com.duicaishijiao.base.repository.MovieInfoRepository;
+import com.duicaishijiao.base.repository.MovieSourceRepository;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,9 +20,8 @@ import us.codecraft.webmagic.selector.Selectable;
 
 @Getter
 @Setter
-@Component
+@Service
 public class NanGuaCrawler extends AbstractCrawler {
-	
 	
 	@Autowired
 	private MovieInfoRepository movieInfoRepository;
@@ -30,13 +29,13 @@ public class NanGuaCrawler extends AbstractCrawler {
 	@Autowired
 	private MovieSourceRepository movieSourceRepository;
 	
-	private int maxCrawPages = 50;
+	private int maxCrawPages = 0;
 
-	private int startCrawPage = 170;
+	private int startCrawPage = 4;
 	
-	private int maxLatestPages = 4;
+	private int maxLatestPages = 3;
 	
-	private boolean crawAll = true;
+	private boolean crawAll = false;
 	
 	
 	@Override
@@ -56,7 +55,7 @@ public class NanGuaCrawler extends AbstractCrawler {
 			end = totalPage;
 		}
 		List<String> pages = new ArrayList<String>();
-		for (int i = 1; i <= maxLatestPages; i++) {
+		for (int i = 1; i <= Integer.min(startCrawPage-1, maxLatestPages); i++) {
 			pages.add(domain + firstPageLink.replace("-1", "-" + i));
 		}
 		for (int i = startCrawPage; i < end; i++) {
@@ -98,10 +97,34 @@ public class NanGuaCrawler extends AbstractCrawler {
 			String[] pss = path.split("/");
 			String id = pss[pss.length - 1];
 
+//			MovieInfo movieInfo = new MovieInfo();
+//			movieInfo.setCreateTime(new Date());
+//			movieInfo.setUpdateTime(new Date());
+//			movieInfo.setId(Integer.valueOf(id));
+//			movieInfo.setName(name);
+//			movieInfo.setAlias(alias);
+//			movieInfo.setImg(img);
+//			try {
+//				movieInfo.setScore(Double.valueOf(score));
+//			} catch (Exception e) {
+//				movieInfo.setScore(0.0D);
+//			}
+//			movieInfo.setType(type);
+//			movieInfo.setActors(actors);
+//			movieInfo.setTime(time);
+//			movieInfo.setStatus(status);
+//			movieInfo.setArea(area);
+//			movieInfo.setDesc(desctext);
+//			movieInfo.setAuthor(author);
+//			movieInfoElastic.save(movieInfo);
+			if(movieInfoRepository.countByMovieId(id)>0) {
+				return null;
+			}
+			
 			MovieInfo movieInfo = new MovieInfo();
 			movieInfo.setCreateTime(new Date());
 			movieInfo.setUpdateTime(new Date());
-			movieInfo.setId(Integer.valueOf(id));
+			movieInfo.setMovieId(id);
 			movieInfo.setName(name);
 			movieInfo.setAlias(alias);
 			movieInfo.setImg(img);
@@ -118,6 +141,7 @@ public class NanGuaCrawler extends AbstractCrawler {
 			movieInfo.setDesc(desctext);
 			movieInfo.setAuthor(author);
 			movieInfoRepository.save(movieInfo);
+			
 			return hrefs.stream()
 					.map(h -> domain + h + ";" + id)
 					.collect(Collectors.toList());
@@ -126,8 +150,13 @@ public class NanGuaCrawler extends AbstractCrawler {
 			String source = page.getHtml().$("#playleft iframe", "src").get();
 			String name = page.getHtml().$("div.player div.playdz h1", "text").get();
 
+//			MovieSource movieSource = new MovieSource();
+//			movieSource.setId(Integer.valueOf(id));
+//			movieSource.setName(name);
+//			movieSource.setSource(source);
+//			movieSourceElastic.save(movieSource);
 			MovieSource movieSource = new MovieSource();
-			movieSource.setId(Integer.valueOf(id));
+			movieSource.setMovieId(id);
 			movieSource.setName(name);
 			movieSource.setSource(source);
 			movieSourceRepository.save(movieSource);

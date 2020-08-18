@@ -40,7 +40,11 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-
+			<dependency>
+    			<groupId>com.duicaishijiao</groupId>
+    			<artifactId>base</artifactId>
+    			<version>1.0.0</version>
+    		</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<!-- Add typical dependencies for a web application -->
@@ -80,6 +84,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -120,5 +125,7 @@
 	</build>
 	<modules>
 		<module>com.duicaishijiao.crawler</module>
+		<module>web</module>
+		<module>base</module>
 	</modules>
 </project>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="off">
+	<appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+		</Console>
+	</appenders>
+	<loggers>
+	<root level="INFO">
+		<appender-ref ref="console"/>
+	</root>
+	<Logger name="org.hibernate.engine" level="TRACE" additivity="false">
+      <AppenderRef ref="console"/>
+    </Logger>
+	<Logger name="org.hibernate.engine.internal" level="INFO" additivity="false">
+      <AppenderRef ref="console"/>
+    </Logger>
+    <Logger name="org.hibernate.engine.jdbc" level="INFO" additivity="false">
+      <AppenderRef ref="console"/>
+    </Logger>
+    <Logger name="org.hibernate.engine.transaction" level="INFO" additivity="false">
+      <AppenderRef ref="console"/>
+    </Logger>
+	</loggers>
+</configuration>

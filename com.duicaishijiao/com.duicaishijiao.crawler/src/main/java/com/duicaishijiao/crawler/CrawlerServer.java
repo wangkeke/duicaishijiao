@@ -30,7 +30,7 @@ public class CrawlerServer implements Runnable{
 	/**
 	 * 轮询周期
 	 */
-	private long period = 10*60*1000;
+	private long period = 1*30*1000;
 	
 	private Thread serverTask;
 	
@@ -51,7 +51,11 @@ public class CrawlerServer implements Runnable{
 	
 	@PostConstruct
 	public void init() {
-		registCrawler(miuiCrawler,nanGuaCrawler);
+		registCrawler(
+				miuiCrawler
+//				,
+//				nanGuaCrawler
+				);
 		server();
 	}
 	
@@ -145,10 +149,8 @@ public class CrawlerServer implements Runnable{
 		
 		@Override
 		public void run() {
-			if(!crawler.isInited()) {
-				crawler.init();
-			}
 			try {
+				crawler.init();
 				crawler.crawler();
 				log.info("任务正常完成！");
 			} catch (RuntimeException e) {
