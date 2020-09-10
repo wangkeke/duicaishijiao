@@ -23,7 +23,7 @@ public class MovieScore {
 	
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Integer id;
 	
 	/**
 	 * 分数

@@ -1,4 +1,4 @@
-package com.duicaishijiao.web.restful;
+package com.duicaishijiao.web.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;

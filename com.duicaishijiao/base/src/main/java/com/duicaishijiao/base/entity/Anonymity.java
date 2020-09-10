@@ -27,7 +27,12 @@ public class Anonymity {
 	
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Integer id;
+	
+	/**
+	 * 域名下的匿名用户
+	 */
+	private String domain;
 	
 	/**
 	 * 匿名名称，一般为sessionId
@@ -38,6 +43,7 @@ public class Anonymity {
 	/**
 	 * 客户端设备信息
 	 */
+	@Column(length = 500)
 	private String device;
 	
 	/**

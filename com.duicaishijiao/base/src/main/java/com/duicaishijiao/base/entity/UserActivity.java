@@ -24,13 +24,13 @@ public class UserActivity {
 	
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Integer id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 	
 	/**
-	 * 匿名用户保存session id
+	 * 匿名用户
 	 */
 	private String anonymity;
 	

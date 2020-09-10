@@ -1,5 +1,6 @@
 package com.duicaishijiao.base.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
@@ -20,8 +23,15 @@ import lombok.Data;
 			@Index(columnList = "email",unique = true)
 		}
 )
-public class User {
+@JsonIgnoreProperties({"phone","email","password","disable","reason","updateTime"})
+public class User implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3683912575680220541L;
+
+
 	public static final String TABLE_NAME = "tb_user";
 	
 	
@@ -52,8 +62,12 @@ public class User {
 	/**
 	 * 昵称
 	 */
-	private String nicename;
+	private String nickname;
 	
+	/**
+	 * 用户类型
+	 */
+	private UserType type;
 	
 	/**
 	 * 所在城市
@@ -66,12 +80,12 @@ public class User {
 	private String location;
 	
 	/**
-	 * 是否被禁用
+	 * 是否启用
 	 */
-	private boolean disable = false;
+	private boolean enable = true;
 	
 	/**
-	 * 被禁用原因
+	 * enable=false时，被禁用原因
 	 */
 	private String reason;
 	

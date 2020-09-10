@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 /**
@@ -19,6 +21,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = SourceMetric.TABLE_NAME)
+@JsonIgnoreProperties({"updateTime","createTime"})
 public class SourceMetric {
 	
 	public final static String TABLE_NAME = "tb_sourcemetric";
@@ -31,6 +34,11 @@ public class SourceMetric {
 	 * 播放数量
 	 */
 	private Integer plays;
+	
+	/**
+	 * 评分数
+	 */
+	private Integer scores;
 	
 	/**
 	 * 评论数量

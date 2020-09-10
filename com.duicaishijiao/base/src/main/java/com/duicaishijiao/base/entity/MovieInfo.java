@@ -2,6 +2,7 @@ package com.duicaishijiao.base.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -64,5 +65,17 @@ public class MovieInfo implements Serializable{
 	private Date createTime;
 	
 	private Date updateTime;
+	
+	private transient List<MovieSource> sources;
+	
+	/**
+	 * 当前在线观看人数
+	 */
+	private transient int watchs;
+	
+	/**
+	 * 是否已收藏
+	 */
+	private transient boolean star;
 	
 }

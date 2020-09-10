@@ -22,7 +22,7 @@ public class Danmaku {
 	
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Integer id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;

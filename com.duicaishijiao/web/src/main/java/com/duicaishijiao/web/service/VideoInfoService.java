@@ -1,5 +1,8 @@
 package com.duicaishijiao.web.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -7,6 +10,7 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,13 +31,17 @@ public class VideoInfoService {
 	public Page<VideoInfo> query(Condition condition){
 		return repository.findAll((Root<VideoInfo> root, CriteriaQuery<?> query, CriteriaBuilder builder)-> {
 			Predicate predicate = builder.conjunction();
-			if(condition.getKeyword()!=null && condition.getKeyword().length>0) {
-				Predicate[] predicates = new Predicate[condition.getKeyword().length];
-				for (int i = 0; i < predicates.length; i++) {
-					predicates[i] = builder.like(root.get("title"), "%"+condition.getKeyword()[i]+"%");
+			if(StringUtils.isNotBlank(condition.getKeyword())) {
+				List<Predicate> predicates = new ArrayList<>();
+				for (String word : condition.getKeyword().split("[\\s+|(\\s*,\\s*)|(\\s*，\\s*)]")) {
+					if(StringUtils.isNotBlank(word)) {						
+						predicates.add(builder.like(root.get("title"), "%"+word+"%"));
+					}
 				}
-				predicate.getExpressions().add(builder.or(predicates));
+				predicate.getExpressions().add(builder.or(predicates.toArray(new Predicate[predicates.size()])));
 			}
+			
+			
 			if(condition.getDuration()!=null) {
 				predicate.getExpressions().add(builder.greaterThanOrEqualTo(root.get("duration"), condition.startDuration()));
 				if(condition.endDuration()!=null) {

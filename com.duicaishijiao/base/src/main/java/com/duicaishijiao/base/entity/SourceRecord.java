@@ -16,7 +16,7 @@ public class SourceRecord {
 	
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Integer id;
 	
 	/**
 	 * 标题
