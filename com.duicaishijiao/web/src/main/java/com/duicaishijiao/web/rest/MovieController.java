@@ -70,6 +70,7 @@ public class MovieController {
 		service.addShare(sharePut);
 	}
 	
+	
 	@PutMapping("comment")
 	public void comment(@RequestBody CommentPut comment) {
 		
