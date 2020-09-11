@@ -43,6 +43,12 @@ public class Danmaku {
 	 */
 	private String content;
 	
+	/**
+	 * 弹幕颜色
+	 */
+	private String color;
+	
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createTime;
 	

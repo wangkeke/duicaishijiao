@@ -31,18 +31,24 @@ import com.duicaishijiao.base.entity.MovieScore;
 import com.duicaishijiao.base.entity.MovieSource;
 import com.duicaishijiao.base.entity.SourceRecord;
 import com.duicaishijiao.base.entity.User;
+import com.duicaishijiao.base.entity.UserShare;
 import com.duicaishijiao.base.entity.UserStar;
+import com.duicaishijiao.base.repository.AnonymityRepository;
 import com.duicaishijiao.base.repository.CommentRepository;
 import com.duicaishijiao.base.repository.MovieInfoRepository;
 import com.duicaishijiao.base.repository.MovieScoreRepository;
 import com.duicaishijiao.base.repository.MovieSourceRepository;
+import com.duicaishijiao.base.repository.UserRepository;
+import com.duicaishijiao.base.repository.UserShareRepository;
 import com.duicaishijiao.base.repository.UserStarRepository;
 import com.duicaishijiao.web.Exception.BusinessException;
 import com.duicaishijiao.web.Exception.NotFoundException;
 import com.duicaishijiao.web.common.KeyConstants;
+import com.duicaishijiao.web.common.KeyIdConverter;
 import com.duicaishijiao.web.filter.CurrentUser;
 import com.duicaishijiao.web.vo.Condition;
 import com.duicaishijiao.web.vo.ScorePut;
+import com.duicaishijiao.web.vo.SharePut;
 import com.duicaishijiao.web.vo.StarPut;
 
 @Service
@@ -62,6 +68,15 @@ public class MovieInfoService {
 	
 	@Autowired
 	private UserStarRepository userStarRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private AnonymityRepository anonymityRepository;
+	
+	@Autowired
+	private UserShareRepository userShareRepository;
 	
 	@Autowired
 	private MovieScoreRepository movieScoreRepository;
@@ -152,8 +167,24 @@ public class MovieInfoService {
 			info.setWatchs(0);
 		}
 		//是否已收藏
-//		long starCount = userStarRepository.countByMovieInfo(info);
+		String anonymity = CurrentUser.getAnonymity();
+		User user = CurrentUser.getUser();
 		info.setStar(false);
+		if(user!=null) {
+			int c = userStarRepository.countByMovieInfoAndUserAndFlagNot(info, user, -1);
+			if(c>0) {
+				info.setStar(true);
+			}
+		}
+		//分享链接
+		StringBuilder query = new StringBuilder();
+		if(user!=null) {			
+			query.append("token="+KeyIdConverter.simpleKey(user.getId()));
+		}else {
+			query.append("token="+anonymity);
+		}
+		
+		info.setShareQuery(query.toString());
 		return info;
 	}
 	
@@ -260,9 +291,46 @@ public class MovieInfoService {
 			SourceRecord record = new SourceRecord();
 			record.setImg(movieInfo.getImg());
 			record.setTitle(movieInfo.getName());
-			record.setUrl("movie/25787?order=3&page=2");
+			record.setUrl(starPut.getPath());
 			userStarRepository.save(userStar);
 		}
+	}
+	
+	@Transactional
+	public void addShare(SharePut sharePut) {
+		MovieInfo movieInfo = getById(sharePut.getId());
+		if(movieInfo==null) {
+			return;
+		}
+		Integer userId = KeyIdConverter.simpleId(sharePut.getToken());
+		User user = null;
+		String anonymity = null;
+		if(userId!=null) {
+			Optional<User> optional = userRepository.findById(userId);
+			if(!optional.isPresent()) {
+				return;
+			}
+			user = optional.get();
+		}else {
+			int count = anonymityRepository.countByAnonymity(sharePut.getToken());
+			if(count==0)
+				return;
+		}
+		UserShare userShare = new UserShare();
+		Date time = new Date();
+		userShare.setCreateTime(time);
+		userShare.setDevice(sharePut.getDevice());
+		userShare.setIp(sharePut.getIp());
+		userShare.setMovieInfo(movieInfo);
+		userShare.setUpdateTime(time);
+		userShare.setUser(user);
+		userShare.setAnonymity(anonymity);
+		SourceRecord record = new SourceRecord();
+		record.setImg(movieInfo.getImg());
+		record.setTitle(movieInfo.getName());
+		record.setUrl(sharePut.getPath());
+		userShare.setRecord(record);
+		userShareRepository.save(userShare);
 	}
 	
 }

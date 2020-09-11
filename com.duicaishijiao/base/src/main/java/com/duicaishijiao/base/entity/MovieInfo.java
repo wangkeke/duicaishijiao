@@ -78,4 +78,9 @@ public class MovieInfo implements Serializable{
 	 */
 	private transient boolean star;
 	
+	/**
+	 * 分享链接查询参数
+	 */
+	private String shareQuery;
+	
 }

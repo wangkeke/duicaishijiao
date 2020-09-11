@@ -2,6 +2,7 @@ package com.duicaishijiao.base.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -35,11 +36,27 @@ public class UserShare {
 	private User user;
 	
 	/**
+	 * 匿名用户
+	 */
+	private String anonymity;
+	
+	/**
 	 * 
 	 */
 	@JoinColumn(name = "record_id")
 	@OneToOne
 	private SourceRecord record;
+	
+	/**
+	 * 分享目标用户的设备信息
+	 */
+	@Column(length = 500)
+	private String device;
+	
+	/**
+	 * 分享目标用户的设备IP地址
+	 */
+	private String ip;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private MovieInfo movieInfo;
